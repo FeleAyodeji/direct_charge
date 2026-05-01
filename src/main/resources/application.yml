@@ -1,3 +1,6 @@
+server:
+  port: 8080
+
 spring:
   application:
     name: direct-charge
@@ -8,9 +11,9 @@ spring:
     driver-class-name: org.h2.Driver
   h2:
     console:
-      enabled: false
+      enabled: true
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    open-in-view: false
     hibernate:
       ddl-auto: update
     show-sql: true
@@ -20,9 +23,6 @@ spring:
 
 app:
   api-key: ${APP_API_KEY:default-key}
-
-server:
-  port: 8081
 
 logging:
   level:
