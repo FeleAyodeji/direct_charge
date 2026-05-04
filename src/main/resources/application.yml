@@ -1,6 +1,6 @@
 server:
   port: 8080
-
+debug: true
 spring:
   application:
     name: direct-charge

@@ -20,13 +20,13 @@ public class ItexPayClient {
     private final EncryptionService encryptionService;
     private final ObjectMapper objectMapper;
 
-    @Value("${itexpay.public-key}")
+    @Value("${ITEXPAY_PUBLIC_KEY}")
     private String publicKey;
 
-    @Value("${itexpay.private-key}")
+    @Value("${ITEXPAY_PRIVATE_KEY}")
     private String privateKey;
 
-    @Value("${itexpay.encryption-key}")
+    @Value("${ITEXPAY_ENCRYPTION_KEY}")
     private String encryptedPublicKey;
 
     /**

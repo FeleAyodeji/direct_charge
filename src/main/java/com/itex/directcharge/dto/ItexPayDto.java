@@ -1,6 +1,7 @@
 package com.itex.directcharge.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -43,6 +44,7 @@ public class ItexPayDto {
     }
 
     @Data
+    @Schema(description = "Request payload for initiating a transaction")
     public static class TransactionPayload {
         @Valid
         @NotNull(message = "Transaction details are required")
@@ -58,27 +60,39 @@ public class ItexPayDto {
     }
 
     @Data
+    @Schema(description = "Transaction specific details")
     public static class Transaction {
         @NotBlank(message = "Merchant reference is required")
+        @Schema(example = "REF-123456", description = "Unique reference for the transaction")
         private String merchantreference;
+        @Schema(example = "https://your-site.com/callback", description = "URL for server-to-server callback")
         private String callbackurl;
         @NotBlank(message = "Redirect URL is required")
+        @Schema(example = "https://your-site.com/redirect", description = "URL to redirect the user after payment")
         private String redirecturl;
         @NotBlank(message = "Authentication option is required")
+        @Schema(example = "PIN", description = "Authentication method (e.g., PIN, OTP)")
         private String authoption;
         @NotBlank(message = "Payment method is required")
+        @Schema(example = "CARD", description = "Payment method used")
         private String paymentmethod;
+        @Schema(example = "123456", description = "OTP code for validation (used in validate endpoint)")
         private String otp;
     }
 
     @Data
+    @Schema(description = "Order details including amount and currency")
     public static class Order {
         @NotBlank(message = "Amount is required")
+        @Schema(example = "100.00", description = "Amount to charge")
         private String amount;
+        @Schema(example = "Payment for services", description = "Description of the order")
         private String description;
         @NotBlank(message = "Currency is required")
+        @Schema(example = "NGN", description = "Currency code (ISO 4217)")
         private String currency;
         @NotBlank(message = "Country code is required")
+        @Schema(example = "NG", description = "Country code (ISO 3166-1 alpha-2)")
         private String country;
     }
 
@@ -105,15 +119,21 @@ public class ItexPayDto {
     }
 
     @Data
+    @Schema(description = "Card details for payment")
     public static class Card {
         @NotBlank(message = "Card number is required")
+        @Schema(example = "5399410000000000", description = "Credit/Debit card number")
         private String number;
         @NotBlank(message = "Expiry month is required")
+        @Schema(example = "12", description = "Card expiry month (MM)")
         private String expirymonth;
         @NotBlank(message = "Expiry year is required")
+        @Schema(example = "25", description = "Card expiry year (YY)")
         private String expiryyear;
         @NotBlank(message = "CVV is required")
+        @Schema(example = "123", description = "Card security code")
         private String cvv;
+        @Schema(example = "1111", description = "Card PIN (required for PIN auth)")
         private String pin;
     }
 
@@ -135,11 +155,14 @@ public class ItexPayDto {
     }
 
     @Data
+    @Schema(description = "Standard response for charge requests")
     public static class ChargeResponse {
         private Map<String, Object> transaction;
         private Map<String, Object> order;
         private Map<String, Object> source;
+        @Schema(example = "00", description = "Response code")
         private String code;
+        @Schema(example = "Approved", description = "Response message")
         private String message;
     }
 }
